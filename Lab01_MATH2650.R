@@ -3,7 +3,7 @@
 #
 #   MATH 2650: Computational Statistics
 #   Lab 01
-#   10 September, 2026
+#   10 September 2026
 # 
 #   First Lab Group 1
 #   Angie Wang
