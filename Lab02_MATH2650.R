@@ -1,30 +1,36 @@
+###############################################################################
 #
 #
 #   MATH 2650: Computational Statistics
 #   Lab 02
 #   17 September 2026
 # 
-#   First Lab Group 1:
-#   Matt O'Connor, Vonn Russell, Angie Wang
+#   First Lab Group 1
+#   Angie Wang
 #
 #
-#
+###############################################################################
+
+# Question 1: Generate random numbers from Rademacher distribution by 
+#             transforming Bernoulli R.V.
 
 #### (1a.) Rademacher Random Numbers ####
 B <- 20000 # Number of trials
 P <- 1/2   # Probability of success 
 
-gen_rademacher_vars <- function(n, p){
+gen_rademacher_vars <- function(n){
   # Generate Rademacher R.V.s by transforming Bernoulli R.V.s 
   x <- rbinom(n = n, size = 1, prob = P) # Generate Bernoulli R.V.s
   r <- 2*x - 1                           # Transform to Rademacher R.V.
 }
 
-rademacher_draws <- gen_rademacher_vars(B, P)
+rademacher_draws <- gen_rademacher_vars(B)
 mean(rademacher_draws) 
 
-# Interpretation: The sample mean is close to zero because the Rademacher draws
-#                 alternate between -1 and 1, which will cancel each other out.
+# Interpretation: The sample mean is close to zero because the Rademacher R.V.
+#                 takes on values -1 and 1, each with 1/2 probability. Therefore
+#                 the theoretical expected value E(x) = (-1)(1/2) + (1)(1/2) = 0.
+
 
 #### (1b.) Normal & Lognormal Random Numbers ####
 N     <- 20000 # Number of trials
@@ -35,10 +41,10 @@ SIGMA <- 1/2   # Standard deviation
 gen_lognorm_vars <- function(mu, sigma, n){
   # Generate log normal R.V.s from transforming normal R.V.s
     z <- rnorm(n, mu, sigma) # Obtain normal R.V.s
-    x <- exp(z)              # Log transform normal R.V.s
+    x <- exp(z)              # Exponentiate normal R.V.s
 }
 
-lognorm_draws <- gen_lognorm_vars(MU, SIGMA^2, N)
+lognorm_draws <- gen_lognorm_vars(MU, SIGMA, N)
 dens_lognorm  <- density(lognorm_draws)
 
 hist(lognorm_draws, prob = TRUE)
@@ -58,6 +64,8 @@ lines(dens_norm, col = "blue", lwd = 2)
 #                 results in our original random variables, which come from a 
 #                 normal distribution with mean of 5.  
 
+
+# Question 2: Explore Markov Chains for t distributions with various degrees of freedom.
 
 #### (2a.) Markov Chain ####
 DF_1  <- 2
@@ -89,14 +97,18 @@ plot(1:STEPS, rand_walk_2, type = 'l', xlab = 'Steps', ylab = 'Random Walk', mai
 
 # Interpretation: Our first random walk with 2 degrees of freedom, in general,
 #                 has a larger deviation from the initial value of 0 than the 
-#                 random walk with 5 degrees of freedom. The actual behavior of
-#                 the random walk itself is difficult to generalize.
+#                 random walk with 5 degrees of freedom. This makes sense because 
+#                 the random walk with 2 df has more variability (step size comes 
+#                 from distribution with fatter tails) and is more likely to 
+#                 produce large steps. The actual behavior of the random walk
+#                 itself is difficult to generalize.
+
 
 #### (2b.) Markov Chain with Stopping Rule ####
+EPSILON <- 5 # Set tolerance (range of random walk)
 
 ##### (2b.i) First Random Walk with 2 df #####
-EPSILON            <- 5 # Set tolerance
-rand_walk_1a_chain <- 0 # Dynamically increasing vector
+rand_walk_1a_chain <- 0 # "Vector" of random walks
 rand_walk_1a_check <- 0 # To check against tolerance
 i                  <- 2 # Counter
 
@@ -106,8 +118,7 @@ while(abs(rand_walk_1a_check) < EPSILON){
   i                     <- i + 1
 }
 
-par(mfrow = c(1, 2))
-plot(rand_walk_1a_chain, type = 'l', xlab = paste('Steps = ', i-1, sep = ''), ylab = 'Random Walk',
+plot(rand_walk_1a_chain, type = 'l', xlab = paste('Steps = ', i-2, sep = ''), ylab = 'Random Walk',
      main = paste('df = ', DF_1, '; Tolerance = ', EPSILON, sep = ''))
 
 ##### (2b.ii) Second Random Walk with 5 df #####
@@ -121,15 +132,17 @@ while(abs(rand_walk_2a_check) < EPSILON){
   j                     <- j + 1
 }
 
-plot(rand_walk_2a_chain, type = 'l', xlab = paste('Steps = ', j-1, sep = ''), ylab = 'Random Walk',
+plot(rand_walk_2a_chain, type = 'l', xlab = paste('Steps = ', j-2, sep = ''), ylab = 'Random Walk',
      main = paste('df = ', DF_2, '; Tolerance = ', EPSILON, sep = ''))
 
-# Interpretation: After rerunning many times, the two graphs' behaviors are 
-#                 consistently different from each other in trend as well as
-#                 number of steps before tolerance is reached. Between df = 2
-#                 and df = 5, neither one consistently has a larger number of
-#                 steps than the other.
+# Interpretation: The random walk with df = 5 usually has more steps than the 
+#                 df = 2 random walk before it exceeds the tolerance threshold. 
+#                 Again, this is likely because the steps in the df = 2 walk 
+#                 are larger and therefore more likely to jump past the threshold
+#                 with a fewer number of steps.
 
+# Question 3: Generate pseudorandom numbers using the Von Neumann/Middle Square Method.
+#             Test with different seeds.
 
 #### (3.) Von Neumann / Middle Square Method ####
 SEED_1 <- 812016
