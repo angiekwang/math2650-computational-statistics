@@ -64,6 +64,7 @@ lines(dens_norm, col = "blue", lwd = 2)
 #                 results in our original random variables, which come from a 
 #                 normal distribution with mean of 5.  
 
+###############################################################################
 
 # Question 2: Explore Markov Chains for t distributions with various degrees of freedom.
 
@@ -140,6 +141,8 @@ plot(rand_walk_2a_chain, type = 'l', xlab = paste('Steps = ', j-2, sep = ''), yl
 #                 Again, this is likely because the steps in the df = 2 walk 
 #                 are larger and therefore more likely to jump past the threshold
 #                 with a fewer number of steps.
+
+###############################################################################
 
 # Question 3: Generate pseudorandom numbers using the Von Neumann/Middle Square Method.
 #             Test with different seeds.
