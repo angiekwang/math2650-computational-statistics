@@ -4,8 +4,7 @@
 #   Lab 03
 #   24 September 2026
 # 
-#   First Lab Group 1:
-#   Matt O'Connor, Vonn Russell, Angie Wang
+#   First Lab Group 1
 #
 #
 #
