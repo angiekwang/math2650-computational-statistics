@@ -24,7 +24,7 @@ x_l         <- 1    # Initial lower bound
 x_u         <- 50   # Initial upper bound
 change_in_x <- x_u - x_l
 counter     <- 0    # Counts number of steps
-x_grid <- seq(1,50) # For plotting
+x_grid      <- seq(1,50) # For plotting
 
 g <- function(a, q){ # Geometric cdf minus quartile
   x <- floor(a)
@@ -62,14 +62,14 @@ estimate_geom_quantile(third_quart)
 
 ##### (1b.) Secant Method for Type II Generalized Logistic Distribution #####
 
-GAMMA   <- 2
-TOL_1b  <- 1e-05 # Set tolerance
-MAX_IT  <- 100   # Set maximum number of iterations
-x <- vector('numeric', length = MAX_IT)
-x[1]     <- 0     # First initial point
-x[2]     <- 1     # Second initial point
-dx      <- x[2] - x[1]
-i <- 2     # Counts number of steps
+GAMMA  <- 2
+TOL_1b <- 1e-05 # Set tolerance
+MAX_IT <- 100   # Set maximum number of iterations
+x      <- vector('numeric', length = MAX_IT)
+x[1]   <- 0     # First initial point
+x[2]   <- 1     # Second initial point
+dx     <- x[2] - x[1]
+i      <- 2     # Counts number of steps
 
 h <- function(a, q){ # cdf minus quartile
   1 - ( exp(-a) / (1 + exp(-a)) )^GAMMA - q
@@ -104,14 +104,15 @@ estimate_logistic_quantile(third_quart)
 #### (2.) Fisher Scoring for MLE ####
 
 ##### (2a.) Poisson Distribution #####
-z <- as.numeric(InsectSprays$count)
-TOL_2a <- 1e-05
-MAX_ITER <- 100
-LAMBDA_0 <- 1 # Starting value
-lambda <- vector('numeric', length = MAX_ITER)
+z         <- as.numeric(InsectSprays$count)
+TOL_2a    <- 1e-05
+MAX_ITER  <- 100
+LAMBDA_0  <- 1 # Starting value
+lambda    <- vector('numeric', length = MAX_ITER)
 lambda[1] <- LAMBDA_0
+a         <- 1 # Initialize counter at 1
 change_in_lambda <- 1 # Initialize to be greater than tolerance
-a <- 1 # Initialize counter at 1
+
 
 pois_derivloglik <- function(lambda){ # First derivative of log-likelihood
   (1/lambda)*sum(z) - length(z)
@@ -143,22 +144,23 @@ pois_uni$root # Uniroot estimate
 
 
 ##### (2b.) Exponential Distribution #####
-w <- as.numeric(sunspot.year) 
-TOL_2b <- 1e-05 # Set tolerance
+w        <- as.numeric(sunspot.year) 
+TOL_2b   <- 1e-05 # Set tolerance
 MAX_ITER <- 100
-THETA_0 <- 0.01 # Set initial starting value
-theta <- vector('numeric', length = MAX_ITER)
+THETA_0  <- 0.01 # Set initial starting value
+theta    <- vector('numeric', length = MAX_ITER)
 theta[1] <- THETA_0 
+b        <- 1 # Initialize counter
 change_in_theta <- 1 # Initialize to be greater than tolerance
-b <- 1 # Initialize counter
+
 
 
 while(change_in_theta > TOL_2b){
   
   score2b <- length(w)/theta[b] - sum(w)
-  info2b <- length(w)/theta[b]^2
+  info2b  <- length(w)/theta[b]^2
   
-  update <- score2b/info2b # Fisher update
+  update  <- score2b/info2b # Fisher update
   
   theta[b+1] <- theta[b] + update
   
@@ -176,22 +178,22 @@ curve(dexp(x, theta[b]), add = TRUE, lwd = 2,)
 
 
 ##### (2c.) Rayleigh Distribution #####
-s <- airquality$Wind
-BETA_0 <- 0.01
-TOL_2c <- 1e-05 # Set tolerance
+s        <- airquality$Wind
+BETA_0   <- 0.01
+TOL_2c   <- 1e-05 # Set tolerance
 MAX_ITER <- 100
+beta     <- vector('numeric', length = MAX_ITER)
+beta[1]  <- BETA_0
+c        <- 1 # Initialize counter
 change_in_beta <- 1 # Initialize to be greater than tolerance
-beta <- vector('numeric', length = MAX_ITER)
-beta[1] <- BETA_0
-c <- 1 # Initialize counter
 
 
 while(change_in_beta > TOL_2c){
   
   score2c <- (length(s)/beta[c]) - sum(s^2)
-  info2c <- length(s)/beta[c]^2
+  info2c  <- length(s)/beta[c]^2
   
-  update <- score2c/info2c # Fisher update
+  update  <- score2c/info2c # Fisher update
   
   beta[c+1] <- beta[c] + update
   
