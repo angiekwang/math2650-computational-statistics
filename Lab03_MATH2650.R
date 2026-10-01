@@ -1,3 +1,4 @@
+###############################################################################
 #
 #
 #   MATH 2650: Computational Statistics
@@ -8,6 +9,9 @@
 #
 #
 #
+###############################################################################
+
+# Question 1: Use the Bisection and Secant methods to find quantiles
 
 #### (1.) Finding Quantiles ####
 
@@ -59,6 +63,7 @@ estimate_geom_quantile(first_quart)
 estimate_geom_quantile(median)      
 estimate_geom_quantile(third_quart) 
 
+# Each quartile requires the same number of steps (6) to converge. 
 
 ##### (1b.) Secant Method for Type II Generalized Logistic Distribution #####
 
@@ -101,6 +106,10 @@ estimate_logistic_quantile(first_quart)
 estimate_logistic_quantile(median)      
 estimate_logistic_quantile(third_quart) 
 
+###############################################################################
+
+# Question 2: Use Fisher Scoring to determine the MLE of the unknown parameter
+
 #### (2.) Fisher Scoring for MLE ####
 
 ##### (2a.) Poisson Distribution #####
@@ -142,6 +151,9 @@ lambda[a] # Fisher scoring estimate
 mean(z) # Analytical MLE estimate
 pois_uni$root # Uniroot estimate
 
+# The Fisher scoring, analytical MLE, and uniroot estimates are all very similar. 
+# In this case, it might be easier to use either uniroot or analytical MLE since 
+# all three require the calculation of the first derivative of log-likelihood function.  
 
 ##### (2b.) Exponential Distribution #####
 w        <- as.numeric(sunspot.year) 
@@ -176,6 +188,9 @@ while(change_in_theta > TOL_2b){
 hist(w, freq = FALSE)
 curve(dexp(x, theta[b]), add = TRUE, lwd = 2,)
 
+# Visually, the exponential model seems to be a good fit for the data, 
+# as the overlaid exponential density function using our estimated parameter 
+# seems to follow the shape of the histogram of the data. 
 
 ##### (2c.) Rayleigh Distribution #####
 s        <- airquality$Wind
@@ -208,4 +223,9 @@ while(change_in_beta > TOL_2c){
 
 hist(s, freq = FALSE)
 curve(beta[c] * x * exp(-beta[c] * x^2), add = TRUE, lwd = 2)
+
+# Visually, it does not seem that the Rayleigh distribution is a good fit 
+# for the data. The overlaid Rayleigh density function using our estimated 
+# parameter seems to be skewed right and is broader compared to the histogram 
+# of our data, which seems to follow a more symmetric and narrow distribution.
 
