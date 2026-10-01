@@ -1,15 +1,18 @@
+###############################################################################
 #
 #
 #   MATH 2650: Computational Statistics
 #   Lab 04
 #   01 October 2026
 # 
-#   First Lab Group 1:
-#   Matt O'Connor, Vonn Russell, Angie Wang
+#   First Lab Group 1
 #
 #
+###############################################################################
 
-#### (1.) Rejection Sampling ####
+# Question 1: Use rejection sampling to estimate distributions with given 
+#             proposal density.
+
 SEED1 <- 1979
 B1    <- 10000
 B2    <- 50000
@@ -91,6 +94,12 @@ efficiency_percent <- efficiency*100
 
 print(paste("The efficiency is", efficiency, "or", efficiency_percent, "percent for",
             B2, "samples."))
+
+
+# Interpretation: Visually, it does not appear that additional samples improve the estimate of the density by much. 
+# The graphs of the distribution look nearly identical for 10,000 versus 50,000 samples. As B gets larger, the 
+# efficiency increases by a miniscule amount. The efficiency is 0.4779 or 47.79% for 10000 samples and 0.4806 
+# or 48.06% for 50000 samples.
 
 ##### (1b.) U-quadratic Distribution #####
 ALPHA1 <- 0
@@ -178,7 +187,14 @@ efficiency_percent <- efficiency*100
 print(paste("The efficiency is", efficiency, "or", efficiency_percent, "percent for",
             B2, "samples."))
 
+# Interpretation: Like part 1a, it does not appear that more samples improve the estimate greatly. 
+# Efficiency also does not change drastically as B gets larger: the efficiency is 0.3321 or 33.21% 
+# for 10,000 samples and is 0.3326 or 33.26% for 50,000 samples.
 
+###############################################################################
+
+# Question 2: Use importance sampling (or resampling) to find the mean and variance
+#             of given distributions.
 
 #### (2.) Importance Sampling/Resampling ####
 SEED2 <- 1789
@@ -230,6 +246,12 @@ second_mom <- sum(w_2aii*xb_2aii^2)/sum(w_2aii)
 variance <- second_mom - first_mom^2
 print(paste("Estimated Kumaraswamy variance using beta proposal density is", round(variance, 4)))
 
+# Interpretation: Using the standard uniform distribution as the proposal density, the estimated mean of 
+# the Kumaraswamy distribution is 0.5331, and the estimated variance is 0.0489. Using the beta distribution 
+# as the proposal density, the estimated mean of the Kumaraswamy distribution is 0.5311, and the estimated variance is 0.0487. 
+# There is not a large difference between moments estimated using the standard uniform and beta distributions.
+
+
 
 ##### (2b.) U-quadratic Distribution #####
 ALPHA2 <- -2
@@ -278,6 +300,11 @@ second_mom <- sum(w_2bii[1:B1]*xb_2bii[1:B1]^2)/sum(w_2bii[1:B1])
 variance <- second_mom - first_mom^2
 print(paste("Estimated U-quadratic variance using std normal proposal density is", round(variance, 4)))
 
+# Interpretation: Using the uniform distribution as the proposal density, the estimated mean of the U-quadratic distribution 
+# is -0.0188, and the estimated variance is 2.4001. Using the standard normal distribution as the proposal density, the 
+# estimated mean of the U-quadratic distribution is -0.0332, and the estimated variance is 2.3758. 
+# There is not a large difference between moments estimated using the uniform and standard normal distributions.
+
 
 ##### (2c.) U-quadratic w/ Importance Resampling #####
 B1 <- 10000 # Number of samples to keep
@@ -312,6 +339,20 @@ second_mom <- mean(xb_2cii^2)
 variance <- second_mom - first_mom^2
 print(paste("Estimated resampling U-quadratic mean using standard normal proposal density is", round(first_mom, 4)))
 print(paste("Estimated resampling U-quadratic variance using standard normal proposal density is", round(variance, 4)))
+
+# Interpretation: Using importance resampling and uniform proposal density, the estimated mean of the U-quadratic distribution is -0.0171, 
+# and the estimated variance is 2.3078. Using importance resampling and standard normal proposal density, the estimated mean of the U-quadratic 
+# distribution is 0.0123, and the estimated variance is 1.9084. 
+
+# The importance resampling method using the uniform proposal density did not result in much different values. 
+# However, the importance resampling produced a less accurate measure of the estimated variance for standard normal proposal density.  
+
+# This is because, while most values lie in the tails of the u-quadratic distribution, the normal proposal density 
+# is the opposite: most values lie toward the center of the distribution. Though this results in larger importance ratios for random variables 
+# sampled from the tails of the normal distribution and makes them more likely to be selected in importance resampling, they are more unlikely 
+# to be generated from the normal proposal density in the first place. Therefore, when importance resampling without replacement, after selecting 
+# and removing the highly weighted random variables, more observations will be selected from the center of the distribution. 
+
 
 
 
