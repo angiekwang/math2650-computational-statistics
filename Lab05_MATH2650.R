@@ -4,8 +4,6 @@
 #   Lab 05
 #   08 October 2026
 # 
-#   Second Lab Group 5:
-#   Destiny Agubata, Vonn Russell, Angie Wang
 #
 #
 
