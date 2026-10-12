@@ -5,7 +5,6 @@
 #   16 October 2026
 # 
 #   Second Lab Group 5:
-#   Destiny Agubata, Vonn Russell, Angie Wang
 #
 #
 
@@ -21,6 +20,9 @@ a_i    <- 1/2
 b_i    <- 1/2
 
 tx_hat <- (sum(x) + a_i)/(n + b_i) # Empirical Bayes estimator
+
+# We obtain an analytical Jackknife estimator of 0.27002, so we estimate that the proportion 
+# of patients in the population who present with symptoms consistent with malaria is roughly 27%.
 
 # Analytical Jackknifed Estimate
 Jtx_a <- n*tx_hat - ((n-1) / (n*(n-1+b_i)))*((n-1)*sum(x) + n*a_i)
