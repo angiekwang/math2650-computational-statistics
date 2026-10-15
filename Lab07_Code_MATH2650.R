@@ -1,12 +1,6 @@
 #
-#
 #   MATH 2650: Computational Statistics
 #   Lab 07
-#   22 October 2026
-# 
-#   Second Lab Group 5:
-#   Destiny Agubata, Vonn Russell, Angie Wang
-#
 #
 
 
@@ -50,6 +44,9 @@ for(k in 1:K){
 
 apply(PRESS_k_4, 2, sum)
 
+# Using 4-Fold cross-validation, we conclude that the simple regression model using ORAL 
+# (sound oral rulings) as the explanatory variable is the most predictive model, as the 
+# PRESS statistic is the lowest (2.03) out of the three models.
 
 #### (2.) Leave-One-Out CV ####
 
@@ -76,6 +73,11 @@ for(j in 1:n){
 PRESS_4fLOO <- rbind(apply(PRESS_j_LOO, 2, sum), apply(PRESS_k_4, 2, sum))
 rownames(PRESS_4fLOO) <- c('LOO', '4-Fold')
 PRESS_4fLOO
+
+# Using leave-one-out cross-validation, we also conclude that the ORAL model is the most predictive, 
+# with the lowest PRESS statistic (2.00) out of the three. While the absolute and relative magnitudes 
+# of the PRESS statistics differ between the 4-Fold and leave-one-out cross-validation methods, we 
+# come to the same conclusion about which model is the best predictor of retention score.
 
 
 #### (3.) Monte Carlo CV Function ####
@@ -112,9 +114,17 @@ MC_cross <- function(P, B){ # P = number of withheld obs; B = number of samples
 set.seed(1974)
 MC_cross(P = 10, B = 10000)
 
+# Using Monte Carlo CV with 10,000 random draws, we conclude (consistent with the 
+# previous two CV tests) that the ORAL model is the most predictive with the lowest mean PRESS statistic of 0.472. 
+
 #### (5.) Monte Carlo CV Rerun ####
 set.seed(1974)
 MC_cross(P = 10, B = 20000)
+
+# Using Monte Carlo CV with 20,000 random draws, we also conclude that the ORAL model is the 
+# most predictive with the lowest mean PRESS statistic of 0.472. The mean PRESS statistics 
+# are very similar between the Monte Carlo CV tests with 10,000 versus 20,000 draws, so 
+# 10,000 samples is most likely enough samples to obtain a consistent estimate of the PRESS statistics.
 
 
 
