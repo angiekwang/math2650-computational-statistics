@@ -2,10 +2,6 @@
 #
 #   MATH 2650: Computational Statistics
 #   Lab 08
-#   05 November 2026
-# 
-#   Second Lab Group 5:
-#   Destiny Agubata, Vonn Russell, Angie Wang
 #
 #
 
@@ -52,6 +48,12 @@ alpha <- 0.01
 print("99% Parametric Bootstrap interval for theta")
 quantile(thetas_p, probs = c(alpha/2, 1-alpha/2))
 
+# The 99% intervals are identical for the parametric and nonparametric bootstrap intervals. From the
+# histograms, we can observe that the bootstrapped estimators follow a nearly identical distribution
+# for both the parametric and nonparametric bootstrapping methods. We can therefore conclude that
+# the Bernoulli distribution is a good approximation of the actual underlying distribution of the
+# proportion of children who present with symptoms consistent with malaria.
+
 #### (2.) Nonparametric Intervals for Mean & Median ####
 B        <- 10000
 antibody <- malaria$ab
@@ -91,6 +93,9 @@ abline(v = mean_0, col = 'darkblue', lwd = 2)
 alpha <- 0.1
 print("90% Bootstrap interval for mean")
 quantile(mean_vec, probs = c(alpha/2, 1-alpha/2))
+
+# From the histograms, you can see that the distribution of the bootstrapped medians and means
+# follow significantly different distributions, which explains the differences in the 90% bootstrapped intervals.
 
 #### (3.) Mean Absolute Deviation ####
 mad_0   <- mad(antibody) # MAD for antibody levels
