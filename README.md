@@ -7,3 +7,4 @@
 - [Lab 05](Lab05_MATH2650.R): Permutation tests for difference in means and difference in proportions.
 - [Lab 06](Lab06_MATH2650.R): Jackknife estimates of test statistics, variance, and bias.
 - [Lab 07](Lab07_MATH2650.R): Cross-Validation: K-Fold, Leave-One-Out, and Monte Carlo.
+- [Lab 07](Lab08_Code.R): Parametric and non-parametric bootstrapping for interval estimation.
