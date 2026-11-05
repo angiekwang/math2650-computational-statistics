@@ -8,3 +8,4 @@
 - [Lab 06](Lab06_MATH2650.R): Jackknife estimates of test statistics, variance, and bias.
 - [Lab 07](Lab07_MATH2650.R): Cross-Validation: K-Fold, Leave-One-Out, and Monte Carlo.
 - [Lab 08](Lab08_MATH2650.R): Parametric and non-parametric bootstrapping for interval estimation.
+- [Lab 09](Lab09_MATH2650.R): Elementary Bayesian statistics.
